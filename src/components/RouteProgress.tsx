@@ -40,7 +40,6 @@ export const RouteProgress = () => {
     }, 650);
 
     return () => clear();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname, searchParams?.toString()]);
 
   if (!visible) return null;

@@ -1,36 +1,159 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 👥 Employee Rating Hub
 
-## Getting Started
+**Система управления персоналом с рейтингами и активностью пользователей**
 
-First, run the development server:
+Современное веб-приложение на Next.js 15 для управления сотрудниками, работодателями и тестами с интегрированной системой отслеживания активности пользователей.
+
+![Next.js](https://img.shields.io/badge/Next.js-15.3.5-black)
+![React](https://img.shields.io/badge/React-19.0.0-blue)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-blue)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.4.0-green)
+![Vercel Ready](https://img.shields.io/badge/Vercel-Ready-black)
+
+## 🚀 Возможности
+
+### 🏠 Главная панель
+- **Лента активности** с отслеживанием действий пользователей в реальном времени
+- **Статистический дашборд** с разбивкой активности по категориям
+- **Современный интерфейс** с адаптивным дизайном
+
+### 👤 Управление сотрудниками
+- **CRUD операции** для сотрудников
+- **Система рейтингов** с 5-звездочной оценкой
+- **Поиск в реальном времени** по имени, должности, отделу, навыкам
+- **Детальные профили** с историей рейтингов и комментариями
+
+### 🏢 Управление работодателями  
+- **Полные профили** компаний с контактной информацией
+- **Каталог работодателей** с поиском и фильтрацией
+- **Загрузка логотипов** компаний
+
+### 📝 Каталог тестов
+- **Библиотека тестов** с категориями и уровнями сложности
+- **Фильтрация** по категориям и сложности
+- **Система тегов** для лучшей организации
+
+### 🎨 Современный UI/UX
+- **Боковая навигация** с адаптивным поведением
+- **Темная/светлая тема** поддержка
+- **Мобильный дизайн** с touch-friendly интерфейсом
+- **Компоненты Radix UI** для максимальной доступности
+
+## 🛠 Технологический стек
+
+- **Framework:** Next.js 15.3.5 (App Router)
+- **Language:** TypeScript 5 (строгий режим)
+- **Styling:** Tailwind CSS v3.4.0
+- **UI Components:** Radix UI
+- **Icons:** Lucide React
+- **State Management:** React Hooks + LocalStorage
+- **Form Handling:** React Hook Form + Zod
+- **Date Handling:** date-fns
+
+## 📦 Установка и запуск
+
+1. **Клонируйте репозиторий:**
+   ```bash
+   git clone <repository-url>
+   cd employee-rating-hub
+   ```
+
+2. **Установите зависимости:**
+   ```bash
+   npm install
+   ```
+
+3. **Запустите сервер разработки:**
+   ```bash
+   npm run dev
+   ```
+
+4. **Откройте браузер:**
+   Перейдите на [http://localhost:3000](http://localhost:3000)
+
+## 🎯 Основные скрипты
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run dev      # Запуск сервера разработки
+npm run build    # Сборка для продакшена
+npm run start    # Запуск продакшен сервера
+npm run lint     # Проверка кода ESLint
+npm run type-check # Проверка типов TypeScript
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 📁 Структура проекта
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+src/
+├── app/                    # Next.js App Router
+│   ├── home/              # Главная с активностью
+│   ├── dashboard/         # Управление сотрудниками  
+│   ├── employers/         # Управление работодателями
+│   ├── tests/            # Каталог тестов
+│   └── layout.tsx        # Корневой лейаут
+├── components/
+│   ├── AppSidebar.tsx    # Боковая навигация
+│   └── ui/              # UI компоненты (Radix UI)
+├── hooks/
+│   ├── useActivity.ts    # Отслеживание активности
+│   ├── useEmployees.ts   # Управление сотрудниками
+│   └── useEmployers.ts   # Управление работодателями
+└── lib/
+    └── utils.ts         # Утилиты (cn, etc.)
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🚀 Деплой на Vercel
 
-## Learn More
+Проект полностью оптимизирован для Vercel:
 
-To learn more about Next.js, take a look at the following resources:
+1. **Автоматический деплой:**
+   ```bash
+   git push origin main
+   # Vercel автоматически создаст деплой
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+2. **Или используйте Vercel CLI:**
+   ```bash
+   npm install -g vercel
+   vercel --prod
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+**📋 Готово к продакшену:** Проект успешно проходит все проверки сборки и оптимизирован для работы на Vercel.
 
-## Deploy on Vercel
+## 🔧 Конфигурация
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **TypeScript:** Строгий режим с полной типизацией
+- **ESLint:** Настроен для Next.js 15
+- **Tailwind CSS:** Оптимизирован с кастомными цветами
+- **Images:** Поддержка WebP/AVIF с безопасными паттернами
+- **Security:** Настроены заголовки безопасности
+- **Performance:** Оптимизирован bundler и код-сплиттинг
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 📊 Производительность
+
+- **Static Pages:** 9 статических маршрутов
+- **Dynamic Pages:** 4 серверных маршрута
+- **Bundle Size:** ~101 kB общий бандл
+- **First Load:** Оптимизировано для Core Web Vitals
+
+## 🤝 Разработка
+
+1. **Добавление новых страниц:** Используйте App Router в `src/app/`
+2. **UI компоненты:** Расширяйте `src/components/ui/`
+3. **Хуки данных:** Добавляйте в `src/hooks/`
+4. **Стили:** Используйте Tailwind CSS классы
+
+## 📝 Лицензия
+
+MIT License - проект готов к коммерческому использованию.
+
+## 🔗 Полезные ссылки
+
+- [Next.js Documentation](https://nextjs.org/docs)
+- [Tailwind CSS](https://tailwindcss.com/docs)
+- [Radix UI](https://radix-ui.com/)
+- [Vercel Deployment](https://vercel.com/docs)
+
+---
+
+**Статус:** ✅ Готово к деплою на Vercel

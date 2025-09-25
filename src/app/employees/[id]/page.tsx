@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, use } from "react";
 import { useRouter } from "next/navigation";
 import { ArrowLeft, Plus, Edit, MapPin, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -34,11 +34,11 @@ const employeeData: Record<string, any> = {
 };
 
 interface PageProps {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 
 export default function EmployeeProfilePage({ params }: PageProps) {
-  const { id } = params;
+  const { id } = use(params);
   const router = useRouter();
   const { byId, addRating } = useEmployeesWithActivity();
   const [isRatingModalOpen, setIsRatingModalOpen] = useState(false);

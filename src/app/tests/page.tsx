@@ -50,15 +50,13 @@ export default function TestsPage() {
 
   const handleTakeTest = (testId: number) => {
     // In a real app, this would navigate to the test taking interface
-    console.log(`Начинаем тест с ID: ${testId}`);
-    // For now, just show an alert
-    alert(`Тест будет запущен! (ID: ${testId})`);
+    // For now, navigate to a placeholder or show a toast notification
+    router.push(`/tests/${testId}/take`);
   };
 
   const handleTestDetails = (testId: number) => {
     // In a real app, this would navigate to detailed test information
-    console.log(`Показать детали теста с ID: ${testId}`);
-    alert(`Подробная информация о тесте (ID: ${testId})`);
+    router.push(`/tests/${testId}`);
   };
 
   return (
