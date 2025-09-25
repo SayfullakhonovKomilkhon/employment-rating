@@ -2,15 +2,14 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Search, Plus, LogOut, Menu } from "lucide-react";
+import { Search, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { StarRating } from "@/components/StarRating";
 import { useEmployees } from "@/hooks/useEmployees";
-import { SidebarProvider, SidebarTrigger, SidebarInset } from "@/components/ui/sidebar";
-import { AppSidebar } from "@/components/AppSidebar";
+import { AppLayout } from "@/components/AppLayout";
 
 // Mock employee data
 const employees = [
@@ -82,110 +81,83 @@ export default function DashboardPage() {
       );
     });
 
-  const handleLogout = () => {
-    router.push("/login");
-  };
-
   return (
-    <SidebarProvider>
-      <div className="flex h-screen w-full">
-        <AppSidebar />
-        <SidebarInset className="flex flex-1 flex-col overflow-hidden">
-          {/* Header */}
-          <header className="flex h-16 shrink-0 items-center gap-2 border-b bg-background px-4">
-            <SidebarTrigger className="md:hidden" />
-            <div className="flex items-center gap-2 flex-1">
-              <div className="md:hidden w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-                <span className="text-sm font-bold text-primary-foreground">ER</span>
-              </div>
-              <h1 className="text-lg font-semibold md:text-xl">Соискатели</h1>
-            </div>
-            <Button variant="outline" onClick={handleLogout} className="flex items-center gap-2">
-              <LogOut className="w-4 h-4" />
-              <span className="hidden sm:inline">Logout</span>
-            </Button>
-          </header>
+    <AppLayout pageTitle="Соискатели" activeSection="candidates">
+      <div className="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
+        {/* Search and Add Employee */}
+        <div className="flex flex-col sm:flex-row gap-4 mb-8">
+          <div className="relative flex-1">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-5 h-5" />
+            <Input
+              type="text"
+              placeholder="Поиск по имени, должности, отделу или навыкам..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="pl-10 h-12"
+            />
+          </div>
+          <Button
+            onClick={() => router.push("/employees/add")}
+            className="flex items-center gap-2 h-12"
+          >
+            <Plus className="w-4 h-4" />
+            <span className="hidden sm:inline">Добавить сотрудника</span>
+            <span className="sm:hidden">Добавить</span>
+          </Button>
+        </div>
 
-          {/* Main Content */}
-          <main className="flex-1 overflow-auto bg-muted/40">
-            <div className="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
-              {/* Search and Add Employee */}
-              <div className="flex flex-col sm:flex-row gap-4 mb-8">
-                <div className="relative flex-1">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-5 h-5" />
-                  <Input
-                    type="text"
-                    placeholder="Поиск по имени, должности, отделу или навыкам..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className="pl-10 h-12"
+        {/* Employee Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filteredEmployees.map((employee) => (
+            <Card
+              key={employee.id}
+              className="hover:shadow-lg transition-shadow cursor-pointer group bg-card"
+              onClick={() => router.push(`/employees/${employee.id}`)}
+            >
+              <CardContent className="p-6">
+                <div className="flex items-center space-x-4 mb-4">
+                  <img
+                    src={employee.image}
+                    alt={employee.name}
+                    className="w-16 h-16 rounded-full object-cover"
                   />
+                  <div className="flex-1">
+                    <h3 className="font-semibold text-lg text-foreground group-hover:text-muted-foreground transition-colors">
+                      {employee.name}
+                    </h3>
+                    <p className="text-muted-foreground">{employee.title}</p>
+                  </div>
                 </div>
-                <Button
-                  onClick={() => router.push("/employees/add")}
-                  className="flex items-center gap-2 h-12"
-                >
-                  <Plus className="w-4 h-4" />
-                  <span className="hidden sm:inline">Добавить сотрудника</span>
-                  <span className="sm:hidden">Добавить</span>
-                </Button>
-              </div>
 
-              {/* Employee Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {filteredEmployees.map((employee) => (
-                  <Card
-                    key={employee.id}
-                    className="hover:shadow-lg transition-shadow cursor-pointer group bg-card"
-                    onClick={() => router.push(`/employees/${employee.id}`)}
-                  >
-                    <CardContent className="p-6">
-                      <div className="flex items-center space-x-4 mb-4">
-                        <img
-                          src={employee.image}
-                          alt={employee.name}
-                          className="w-16 h-16 rounded-full object-cover"
-                        />
-                        <div className="flex-1">
-                          <h3 className="font-semibold text-lg text-foreground group-hover:text-muted-foreground transition-colors">
-                            {employee.name}
-                          </h3>
-                          <p className="text-muted-foreground">{employee.title}</p>
-                        </div>
-                      </div>
+                <div className="space-y-3">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <Badge variant="secondary">
+                      {employee.department}
+                    </Badge>
+                    {/* Skills on main page */}
+                    {employee.skills.slice(0, 3).map((skill) => (
+                      <Badge key={skill} variant="outline" className="text-xs">
+                        {skill}
+                      </Badge>
+                    ))}
+                    {employee.skills.length > 3 && (
+                      <Badge variant="outline" className="text-xs">+{employee.skills.length - 3}</Badge>
+                    )}
+                  </div>
 
-                      <div className="space-y-3">
-                        <div className="flex items-center gap-2 flex-wrap">
-                          <Badge variant="secondary">
-                            {employee.department}
-                          </Badge>
-                          {/* Skills on main page */}
-                          {employee.skills.slice(0, 3).map((skill) => (
-                            <Badge key={skill} variant="outline" className="text-xs">
-                              {skill}
-                            </Badge>
-                          ))}
-                          {employee.skills.length > 3 && (
-                            <Badge variant="outline" className="text-xs">+{employee.skills.length - 3}</Badge>
-                          )}
-                        </div>
-
-                        <StarRating rating={(employee as any).averageRating || 0} />
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-
-              {filteredEmployees.length === 0 && (
-                <div className="text-center py-12">
-                  <p className="text-muted-foreground text-lg">Сотрудники не найдены по вашему запросу.</p>
+                  <StarRating rating={(employee as any).averageRating || 0} />
                 </div>
-              )}
-            </div>
-          </main>
-        </SidebarInset>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+
+        {filteredEmployees.length === 0 && (
+          <div className="text-center py-12">
+            <p className="text-muted-foreground text-lg">Сотрудники не найдены по вашему запросу.</p>
+          </div>
+        )}
       </div>
-    </SidebarProvider>
+    </AppLayout>
   );
 }

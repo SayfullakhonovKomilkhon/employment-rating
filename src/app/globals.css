@@ -81,4 +81,69 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  /* Smooth transitions for sidebar */
+  .sidebar-enter {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  
+  .sidebar-enter-active {
+    transform: translateX(0);
+    opacity: 1;
+    transition: transform 300ms ease-in-out, opacity 300ms ease-in-out;
+  }
+  
+  .sidebar-exit {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  
+  .sidebar-exit-active {
+    transform: translateX(-100%);
+    opacity: 0;
+    transition: transform 300ms ease-in-out, opacity 300ms ease-in-out;
+  }
+
+  /* Overlay fade animations */
+  .overlay-enter {
+    opacity: 0;
+  }
+  
+  .overlay-enter-active {
+    opacity: 1;
+    transition: opacity 200ms ease-in-out;
+  }
+  
+  .overlay-exit {
+    opacity: 1;
+  }
+  
+  .overlay-exit-active {
+    opacity: 0;
+    transition: opacity 200ms ease-in-out;
+  }
+
+  /* Custom scrollbar */
+  .sidebar-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(203 213 225 / 0.5) transparent;
+  }
+  
+  .sidebar-scroll::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  .sidebar-scroll::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  .sidebar-scroll::-webkit-scrollbar-thumb {
+    background: rgb(203 213 225 / 0.5);
+    border-radius: 3px;
+  }
+  
+  .sidebar-scroll::-webkit-scrollbar-thumb:hover {
+    background: rgb(203 213 225 / 0.7);
+  }
 }
